@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Time() {
-    const [dateDiff, setDateDiff] = useState(0);
-    const [timeDiff, setTimeDiff] = useState(0);
-    const [addDiff, setAddDiff] = useState(0)
     const [date1, setDate1] = useState([]);
     const [date2, setDate2] = useState([]);
     const [time1, setTime1] = useState([]);
     const [time2, setTime2] = useState([]);
+    const [dateDiff, setDateDiff] = useState(0);
+    const [timeDiff, setTimeDiff] = useState(0);
+    const [addDiff, setAddDiff] = useState(0)
     const seconds = addDiff / 1000
     const minutes = seconds / 60
     const hours = minutes / 60
@@ -15,11 +15,10 @@ function Time() {
     const months = days / 30
     const years = months / 12
 
-
     function handleClick() {
         setDateDiff(date2 - date1)
         setTimeDiff(time2 - time1)
-        setAddDiff(dateDiff + timeDiff)
+        // setAddDiff(dateDiff + timeDiff) //React compiles states in batches if they are next to each other. In this case you are trying to set state of addDiff but the parameters dateDiff and timeDiff are not set yet. when you double click what happens is , in first click state is set for dateDiff and timeDiff and in second click state is set for addDiff
     }
 
     function handleDateChange1(event) {
@@ -46,6 +45,10 @@ function Time() {
         setTime2(new Date(0, 0, 0, myArray2[0], myArray2[1]))
     }
 
+    useEffect(() => {
+        setAddDiff(dateDiff + timeDiff)
+    }, [timeDiff, dateDiff])
+
     return (
         <>
             <div className="container">
@@ -61,13 +64,12 @@ function Time() {
             </div>
             <div className="container" >
                 <button onClick={handleClick} >Submit</button>
-                {/* <p>milliseconds : {addDiff}</p> */}
-                {seconds > 1 && <p>seconds : {seconds}</p>}
-                {minutes > 1 && <p>minutes : {minutes}</p>}
-                {hours > 1 && <p>hours : {hours}</p>}
-                {days > 1 && <p>days : {days}</p>}
-                {months > 1 && <p>months : {months}</p>}
-                {years > 1 && <p>years : {years}</p>}
+                <p>seconds : {seconds}</p>
+                <p>minutes : {minutes}</p>
+                <p>hours : {hours}</p>
+                <p>days : {days}</p>
+                <p>months : {months}</p>
+                <p>years : {years}</p>
             </div>
         </>
     )
