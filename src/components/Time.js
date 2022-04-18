@@ -8,6 +8,13 @@ function Time() {
     const [date2, setDate2] = useState([]);
     const [time1, setTime1] = useState([]);
     const [time2, setTime2] = useState([]);
+    const seconds = addDiff / 1000
+    const minutes = seconds / 60
+    const hours = minutes / 60
+    const days = hours / 24
+    const months = days / 30
+    const years = months / 12
+
 
     function handleClick() {
         setDateDiff(date2 - date1)
@@ -54,7 +61,13 @@ function Time() {
             </div>
             <div className="container" >
                 <button onClick={handleClick} >Submit</button>
-                <p>difference is:{addDiff}</p>
+                {/* <p>milliseconds : {addDiff}</p> */}
+                {seconds > 1 && <p>seconds : {seconds}</p>}
+                {minutes > 1 && <p>minutes : {minutes}</p>}
+                {hours > 1 && <p>hours : {hours}</p>}
+                {days > 1 && <p>days : {days}</p>}
+                {months > 1 && <p>months : {months}</p>}
+                {years > 1 && <p>years : {years}</p>}
             </div>
         </>
     )
