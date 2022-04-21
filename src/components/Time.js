@@ -9,16 +9,15 @@ function Time() {
     const [timeDiff, setTimeDiff] = useState(0);
     const [addDiff, setAddDiff] = useState(0)
     const seconds = addDiff / 1000
-    const minutes = seconds / 60
-    const hours = minutes / 60
-    const days = hours / 24
-    const months = days / 30
-    const years = months / 12
+    const minutes = (seconds / 60).toFixed(2)
+    const hours = (minutes / 60).toFixed(2)
+    const days = (hours / 24).toFixed(2)
+    const months = (days / 30).toFixed(2)
+    const years = (months / 12).toFixed(2)
 
     function handleClick() {
         setDateDiff(date2 - date1)
         setTimeDiff(time2 - time1)
-        // setAddDiff(dateDiff + timeDiff) //React compiles states in batches if they are next to each other. In this case you are trying to set state of addDiff but the parameters dateDiff and timeDiff are not set yet. when you double click what happens is , in first click state is set for dateDiff and timeDiff and in second click state is set for addDiff
     }
 
     function handleDateChange1(event) {
@@ -52,24 +51,40 @@ function Time() {
     return (
         <>
             <div className="container">
-                <h3>Start Time</h3>
-                <input type="date" onChange={handleDateChange1} />
-                <input type="time" onChange={handleTimeChange1} />
-                <p></p>
-            </div>
-            <div className="container">
-                <h3>End Time</h3>
-                <input type="date" onChange={handleDateChange2} />
-                <input type="time" onChange={handleTimeChange2} />
-            </div>
-            <div className="container" >
-                <button onClick={handleClick} >Submit</button>
-                <p>seconds : {seconds}</p>
-                <p>minutes : {minutes}</p>
-                <p>hours : {hours}</p>
-                <p>days : {days}</p>
-                <p>months : {months}</p>
-                <p>years : {years}</p>
+                <div className="row text-center justify-content-center">
+                    <div className="col-4">
+                        <h4 className="mt-4">Start Time</h4>
+                        <div className="row justify-content-center">
+                            <input className="col-5 mt-4" type="date" onChange={handleDateChange1} />
+                        </div>
+                        <div className="row justify-content-center">
+                            <input className="col-5 mt-4" type="time" onChange={handleTimeChange1} />
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <h4 className="mt-4">End Time</h4>
+                        <div className="row justify-content-center">
+                            <input className="col-5 mt-4" type="date" onChange={handleDateChange2} />
+                        </div>
+                        <div className="row justify-content-center">
+                            <input className="col-5 mt-4" type="time" onChange={handleTimeChange2} />
+                        </div>
+                    </div>
+                </div>
+                <div className="row text-center justify-content-center" >
+                    <div className="col-7 ">
+                        <button type="button" className="btn btn-primary mt-4"
+                            onClick={handleClick}>Submit</button>
+                        <div className=" text-start mt-5 ms-5 ps-3">
+                            <p>seconds : {seconds}</p>
+                            <p>minutes : {minutes}</p>
+                            <p>hours : {hours}</p>
+                            <p>days : {days}</p>
+                            <p>months : {months}</p>
+                            <p>years : {years}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )
